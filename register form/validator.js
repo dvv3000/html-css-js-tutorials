@@ -25,7 +25,7 @@ function validator(options) {
                 for(item of dataElements) {
                     data[item.name] = item.value
                 }
-                console.log(data)
+                options.onSubmit(data)
             }
             else {
 
@@ -49,9 +49,9 @@ function validator(options) {
                 }
                 // nếu đang có lỗi, oninput thì xóa lỗi đi
                 inputElement.oninput = () => {
-                    let errorElement = inputElement.parentElement.querySelector('.form-message')
+                    let errorElement = inputElement.closest('.form-group').querySelector('.form-message')
                     errorElement.innerHTML = ''
-                    inputElement.parentElement.classList.remove('invalid')
+                    inputElement.closest('.form-group').classList.remove('invalid')
                 }
             }
         })
@@ -59,7 +59,7 @@ function validator(options) {
 
     function validate(inputElement, rule) {
         // let errorMessage = rule.getErrorMessage(inputElement.value)
-        let errorElement = inputElement.parentElement.querySelector('.form-message')
+        let errorElement = inputElement.closest('.form-group').querySelector('.form-message')
         let rules = selectorRules[rule.selector]
 
         for (let i = 0; i < rules.length; i++) {
@@ -69,11 +69,11 @@ function validator(options) {
 
         if (errorMessage) {
             errorElement.innerHTML = errorMessage
-            inputElement.parentElement.classList.add('invalid')
+            inputElement.closest('.form-group').classList.add('invalid')
         }
         else {
             errorElement.innerHTML = ''
-            inputElement.parentElement.classList.remove('invalid')
+            inputElement.closest('.form-group').classList.remove('invalid')
         }
 
         return !errorMessage
