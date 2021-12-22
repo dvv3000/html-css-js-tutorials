@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,600;1,300;1,600&display=swap');
+
+:root {
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    background: linear-gradient(-45deg, #80FFDB, #5390D9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Poppins;
+    font-size: 100%;
+}
+
+.form {
+    width: 360px;
+    min-height: 100px;
+    padding: 32px 24px;
+    text-align: center;
+    background: #fff;
+    border-radius: 10px;
+    margin: 24px;
+    align-self: center;
+    box-shadow: 0 2px 5px 0 rgba(51, 62, 73, 0.1);
+}
+
+.form .heading {
+    font-size: 2rem;
+
+}
+
+.form-group {
+    display: flex;
+    margin-bottom: 10px;
+    flex-direction: column;
+}
+
+.form-label {
+    /* font-weight: 700; */
+    padding-bottom: 6px;
+    line-height: 1.8rem;
+    font-size: 1.2rem;
+    text-align: left;
+  }
+  
+.form-control {
+    height: 40px;
+    padding: 8px 12px;
+    border: 1px solid #b3b3b3;
+    border-radius: 3px;
+    outline: none;
+    font-size: 1rem;
+}
+
+.form-message {
+    text-align: left;
+}
+
+.form-control:hover {
+    border-color: #1dbfaf;
+}
+
+.form-group.invalid .form-control {
+    border-color: #f33a58;
+}
+  
+.form-group.invalid .form-message {
+    color: #f33a58;
+}
+  
+.form-message {
+    font-size: 0.8rem;
+    line-height: 1.6rem;
+    padding: 4px 0 0;
+}
+
+.form-submit {
+    outline: none;
+    background-color: #1dbfaf;
+    margin-top: 12px;
+    padding: 12px 16px;
+    font-weight: 600;
+    color: #fff;
+    border: none;
+    width: 100%;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+  
+.form-submit:hover {
+    background-color: #1ac7b6;
+}
+  
+.spacer {
+    margin-top: 20px;
+}
+  
