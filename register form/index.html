@@ -42,6 +42,31 @@
                 <span class="form-message"></span>
             </div>
 
+            <div class="form-group">
+                <label for="province" class="form-label">Address</label>
+                <select name="province" id="province" class="form-control">
+                    <option value="">-- Choose a province ---</option>
+                    <option value="hni">Ha Noi</option>
+                    <option value="hcm">TP Ho Chi Minh</option>
+                    <option value="dng">Da Nang</option>
+                </select>
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="gender" class="form-label">Gender</label>
+                <div>
+                    <input id="gender_male" name="gender" value="male" type="radio" class="form-control">
+                    <label for="gender_male">Male</label>
+                </div>
+                <div>
+                    <input id="gender_female" name="gender" value="female" type="radio" class="form-control">
+                    <label for="gender_female">Female</label>
+                </div>                
+    
+                <span class="form-message"></span>
+            </div>
+
             <button class="form-submit">Submit</button>
         </form>
 
@@ -51,12 +76,15 @@
     <script>
         validator({
             form: '#form-1',
+            formGroupSelector: '.form-group',
             rules: [
                 validator.isRequired('#fullname'),
                 validator.isEmail('#email'),
                 validator.isPassword('#password'),
                 validator.isPassword('#password_confirmation'),
-                validator.isConfirmed('#password', '#password_confirmation')
+                validator.isConfirmed('#password', '#password_confirmation'),
+                validator.isRequired('#province'),
+                validator.isRequired('input[name="gender"]')
             ],
             onSubmit: (data) => {
                 console.log(data);

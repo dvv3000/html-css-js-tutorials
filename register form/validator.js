@@ -10,11 +10,13 @@ function validator(options) {
 
 
             options.rules.forEach(rule => {
-                let inputElement = formElement.querySelector(rule.selector)
-                let isValid = validate(inputElement, rule)
+                let inputElements = formElement.querySelectorAll(rule.selector)
+                for (inputElement of inputElements) {
+                    let isValid = validate(inputElement, rule)
 
-                if(!isValid) {
-                    isFormValid = false
+                    if(!isValid) {
+                        isFormValid = false
+                    }
                 }
             })
 
@@ -23,7 +25,13 @@ function validator(options) {
                 let dataElements = formElement.querySelectorAll('[name]')
                 let data = {}
                 for(item of dataElements) {
+                    if (item.type == 'checkbox' || item.type == 'radio') {
+                        if (!item.matches(':checked')) {
+                            continue
+                        }
+                    }
                     data[item.name] = item.value
+                    
                 }
                 options.onSubmit(data)
             }
@@ -33,7 +41,7 @@ function validator(options) {
         }
 
         options.rules.forEach((rule) => {
-            let inputElement = formElement.querySelector(rule.selector)
+            let inputElements = formElement.querySelectorAll(rule.selector)
 
             if (Array.isArray(selectorRules[rule.selector])){
                 selectorRules[rule.selector].push(rule.getErrorMessage)
@@ -42,38 +50,51 @@ function validator(options) {
                 selectorRules[rule.selector] = [rule.getErrorMessage]
             }
             
-            if (inputElement) {
-                // lắng nghe sự kiện onblur
-                inputElement.onblur = () => {
-                    validate(inputElement, rule)
-                }
-                // nếu đang có lỗi, oninput thì xóa lỗi đi
-                inputElement.oninput = () => {
-                    let errorElement = inputElement.closest('.form-group').querySelector('.form-message')
-                    errorElement.innerHTML = ''
-                    inputElement.closest('.form-group').classList.remove('invalid')
+
+            for (inputElement of inputElements) {
+                if (inputElement) {
+                    // lắng nghe sự kiện onblur
+                    inputElement.onblur = () => {
+                        validate(inputElement, rule)
+                    }
+                    // nếu đang có lỗi, oninput thì xóa lỗi đi
+                    inputElement.oninput = () => {
+                        let errorElement = inputElement.closest(options.formGroupSelector).querySelector('.form-message')
+                        errorElement.innerHTML = ''
+                        inputElement.closest(options.formGroupSelector).classList.remove('invalid')
+                    }
                 }
             }
+
         })
     }
 
     function validate(inputElement, rule) {
         // let errorMessage = rule.getErrorMessage(inputElement.value)
-        let errorElement = inputElement.closest('.form-group').querySelector('.form-message')
+        let errorElement = inputElement.closest(options.formGroupSelector).querySelector('.form-message')
         let rules = selectorRules[rule.selector]
 
         for (let i = 0; i < rules.length; i++) {
-            errorMessage = rules[i](inputElement.value)
+
+            switch(inputElement.type) {
+                case 'radio':
+                case 'checkbox':
+                    errorMessage = rules[i](formElement.querySelector(rule.selector + ':checked'))
+                    break
+                default:
+                    errorMessage = rules[i](inputElement.value)
+            }
+            
             if (errorMessage) break
         }
 
         if (errorMessage) {
             errorElement.innerHTML = errorMessage
-            inputElement.closest('.form-group').classList.add('invalid')
+            inputElement.closest(options.formGroupSelector).classList.add('invalid')
         }
         else {
             errorElement.innerHTML = ''
-            inputElement.closest('.form-group').classList.remove('invalid')
+            inputElement.closest(options.formGroupSelector).classList.remove('invalid')
         }
 
         return !errorMessage
@@ -86,7 +107,7 @@ function validator(options) {
 validator.isRequired = (selector, message='That field is required not be empty.') => {
     return {
         selector,
-        getErrorMessage: (value) => value.trim() ? undefined : message,
+        getErrorMessage: (value) => value ? undefined : message,
     }
 }
 
