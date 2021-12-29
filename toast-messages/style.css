@@ -1,0 +1,131 @@
+:root{
+
+}
+
+* {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+hmtl {
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+
+body {
+    background: #ccc;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#message {
+    position: fixed;
+    top: 32px;
+    right: 32px;
+}
+
+.btn {
+    display: inline-block;
+    align-items: center;
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    padding: 12px 48px;
+    border-radius: 50px;
+    cursor: pointer;
+    min-width: 120px;
+}
+
+.btn--success {
+    background-color: #25bf60;
+}
+.btn--success:hover {
+    background-color: rgba(37, 191, 96, 0.8);
+}
+
+.btn--info {
+    background: #3150ec;
+}
+.btn--info:hover {
+    background: rgba(49, 89, 236, 0.8);
+}
+
+.btn--error { 
+    background: #f54f4e;
+}
+.btn--error:hover { 
+    background: rgba(245, 79, 78, 0.8);
+}
+
+.message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    padding: 15px 0;
+    border-radius: 15px;
+    max-width: 400px;
+    min-width: 350px;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.08);
+    transition: all linear 0.5s;
+    animation: slideInLeft linear .5s;
+}
+
+.message + .message {
+    margin-top: 10px;
+}
+
+@keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(calc(100%  + 32px));
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+    }
+}
+
+.message__icon{
+    font-size: 2rem;
+    flex: 1;
+    text-align: center;
+
+}
+
+.message__content {
+    margin-left: 10px;
+    flex: 5;
+}
+
+.message__close {
+    font-size: 2rem;
+    flex: 1;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+.message--error .message__icon, .message--error h3 {
+    color: #f54f4e;
+}
+
+.message--success .message__icon, .message--success h3 {
+    color: #25bf60;
+}
+
+.message--info .message__icon, .message--info h3 {
+    color: #3150ec;
+}

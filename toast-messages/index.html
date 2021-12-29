@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+
+    <div>
+        <div onclick="showSuccess()" class="btn btn--success">
+            Show sucess message
+        </div>
+        <div onclick="showInfo()" class="btn btn--info">
+            Show info message
+        </div>
+        <div onclick="showError()" class="btn btn--error">
+            Show sucess message
+        </div>
+    </div>
+
+
+    <div id="message"></div>
+    <script src="./app.js"></script>
+    <script>
+        function showSuccess() {
+            showMessage({
+                title: "Source successfully added",
+                content: "Start exploring",
+                type: 'success'
+            })
+        }
+        function showInfo() {
+            showMessage({
+                title: "You have some new review",
+                content: "Refresh feed",
+                type: 'info'
+            })
+        }
+        function showError() {
+            showMessage({
+                title: "Credit card expired",
+                content: "Update payment details",
+                type: 'error'
+            })
+        }
+    </script>
+</body>
+</html>
